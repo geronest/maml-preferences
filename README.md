@@ -31,7 +31,7 @@ bash scripts/bloom_full_reward10k.sh
 We provide sample scripts for running Romanian experiments with Gemma3-270M, and Catalan experiments with BLOOM-7B1. 
 Evaluation results are automatically computed at the end of each run and saved to `./eval_results/{lang}/summary/summary.csv`.
 
-## Based on Gemma3-270m
+## Gemma3-270m Policy Experiments
 We provide sample scripts for the Romanian task.
 1. baseline DPO
 ```bash
@@ -53,7 +53,7 @@ bash scripts/meta_dpo_gemma_ro.sh
 bash scripts/meta_rlhf_gemma_ro.sh
 ```
 
-## Based on Bloom-7b1
+## Bloom-7b1 Policy Experiments
 We provide sample scripts for the Catalan task.
 1. baseline DPO
 ```bash

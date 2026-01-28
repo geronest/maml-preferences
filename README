@@ -1,4 +1,4 @@
-<h1 align="center"> <p> Meta-Learning Preferences for Multilingual LLMs  </p></h1>
+<h1 align="center"> <p> Meta-Learning Preferences for Multilingual LLM Alignment  </p></h1>
 <h3 align="center">
     <p>Data-Efficient Preference Learning for Multilingual LLMs through MAML-based pipelines</p>
 </h3>
@@ -28,20 +28,49 @@ bash scripts/bloom_full_reward10k.sh
 ```
 
 # Training
+We provide sample scripts for running Romanian experiments with Gemma3-270M, and Catalan experiments with BLOOM-7B1. 
+Evaluation results are automatically computed at the end of each run and saved to `./eval_results/{lang}/summary/summary.csv`.
 
-1. Supervised Fine-tuning
+## Gemma3-270m Policy Experiments
+We provide sample scripts for the Romanian task.
+1. baseline DPO
 ```bash
-bash scripts/supervised_finetuning.sh
+bash scripts/baseline_dpo_gemma_ro.sh
 ```
 
-2. Reward modelling
+2. Baseline RLHF
 ```bash
-bash scripts/reward_modeling.sh
+bash scripts/baseline_rlhf_gemma_ro.sh
 ```
 
-1. Fine-tuning with RLHF
+3. Meta-DPO
 ```bash
-bash scripts/rl_training.sh
+bash scripts/meta_dpo_gemma_ro.sh
 ```
 
-For Bloom-7.1B model experiments, sample scripts are provided in `scripts/` with names starting with `ca_*`. 
+4. Meta-RLHF
+```bash
+bash scripts/meta_rlhf_gemma_ro.sh
+```
+
+## Bloom-7b1 Policy Experiments
+We provide sample scripts for the Catalan task.
+1. baseline DPO
+```bash
+bash scripts/ca_bloom7b1_baselinedpo.sh
+```
+
+2. Baseline RLHF
+```bash
+bash scripts/ca_bloom7b1_baselinerlhf.sh
+```
+
+3. Meta-DPO
+```bash
+bash scripts/ca_bloom7b1_mamldpo_lora_pipeline.sh
+```
+
+4. Meta-RLHF
+```bash
+bash scripts/ca_bloom7b1_mamlrlhf_lora_entire_pipeline.sh
+```
