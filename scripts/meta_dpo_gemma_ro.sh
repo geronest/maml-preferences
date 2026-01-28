@@ -35,6 +35,7 @@ CUDA_VISIBLE_DEVICES=0 python dpo.py \
     --output_dir=${policy_dir} \
     --gradient_accumulation_steps=${ACCUMULATION} \
     --eval_freq=${EVAL_FREQ} \
+    --wandb_name=${WANDB_NAME} \
     --inner_lr_coef=${INNER_LR_COEF} \
     --num_tasks_per_batch=${NUM_TASKS_PER_BATCH} \
 
@@ -67,6 +68,7 @@ CUDA_VISIBLE_DEVICES=0 python adaptation_dpo.py \
     --eval_dataset_size=1000 \
     --eval_freq=${EVAL_FREQ} \
     --output_dir=$policy_output_dir \
+    --wandb_name=${WANDB_NAME} \
     --beta=${BETA} \
     --gradient_accumulation_steps=${GRAD_ACC_STEP} \
 
