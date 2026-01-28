@@ -1,0 +1,11 @@
+accelerate
+datasets
+torch==2.6.0
+transformers==4.55.2
+tokenizers
+trl>=0.19.0
+deepspeed
+peft==0.17.1
+bitsandbytes
+wandb
+tiktoken
