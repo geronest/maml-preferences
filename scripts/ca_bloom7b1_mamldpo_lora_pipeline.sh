@@ -1,7 +1,7 @@
 #!bin/bash
 
 export WANDB_API_KEY=YOUR_WANDB_API_KEY
-export WANDB_PROJECT=maml-rlhf
+export WANDB_PROJECT=maml-dpo-bloom7b1
 
 # Common Parameters
 model_path=bigscience/bloom-7b1

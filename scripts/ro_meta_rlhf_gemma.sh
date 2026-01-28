@@ -1,5 +1,7 @@
+#!bin/bash
+
 export WANDB_API_KEY=YOUR_WANDB_API_KEY
-export WANDB_PROJECT=maml-rlhf
+export WANDB_PROJECT=maml-rlhf-gemma
 
 lang=ro
 model_path=google/gemma-3-270m

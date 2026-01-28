@@ -1,5 +1,8 @@
 #!bin/bash
 
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
+export WANDB_PROJECT=maml-dpo-gemma
+
 lang=ro
 
 policy_path=google/gemma-3-270m
