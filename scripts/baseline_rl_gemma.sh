@@ -1,6 +1,6 @@
 #!bin/bash
 
-export WANDB_API_KEY=4463d49cb6d35aa2dbab0fe629f9aaeefc8d8898
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=baseline-largemeta_rlhf-gemma_rl_fr
 
 # Common Parameters

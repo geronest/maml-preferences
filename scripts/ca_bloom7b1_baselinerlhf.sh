@@ -1,6 +1,6 @@
 #!bin/bash
 
-export WANDB_API_KEY=b31f5ed0767abb05596b308c3c5efc4384086962
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=maml-rlhf
 
 lang=ca
@@ -60,7 +60,7 @@ GRAD_ACC=1
 WEIGHT_DECAY=1e-6
 LR_SCHEDULER_TYPE=constant
 WANDB_NAME=${lang}_bloom7b1_baselinerm_sft${SFT_NUM_STEPS}_decay${WEIGHT_DECAY}_lora_lr${LR_SCHEDULER_TYPE}${LEARNING_RATE}_${NUM_STEPS}steps_batch${BATCH_SIZE}_acc${GRAD_ACC}_tdata${TRAIN_DATA_SIZE}
-rm_output_dir=ckpts/reward_models/${WANDB_NAME}
+rm_output_dir=ckpts/baseline_rm/${WANDB_NAME}
 RM_NUM_STEPS=${NUM_STEPS}
 RM_BATCH_SIZE=${BATCH_SIZE}
 RM_LEARNING_RATE=${LEARNING_RATE}
@@ -110,7 +110,7 @@ WANDB_NAME=${lang}_bloom7b1_lora_sft${SFT_NUM_STEPS}lr1e-4_sftrm${RM_NUM_STEPS}r
 reward_path=${REWARD_SEARCH_CKPT}
 sft_path=${SFT_SEARCH_CKPT}
 
-policy_output_dir=ckpts/adaption_grpo/${WANDB_NAME}
+policy_output_dir=ckpts/baseline_grpo/${WANDB_NAME}
 
 CUDA_VISIBLE_DEVICES=$GPU_ALLOC python adaptation_grpo.py \
         --reward_path=$reward_path \

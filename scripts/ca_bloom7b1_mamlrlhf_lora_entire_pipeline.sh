@@ -1,6 +1,6 @@
 #!bin/bash
 
-export WANDB_API_KEY=b31f5ed0767abb05596b308c3c5efc4384086962
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=maml-rlhf
 
 # Common Parameters

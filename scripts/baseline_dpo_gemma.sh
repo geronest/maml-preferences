@@ -1,6 +1,6 @@
 #!bin/bash
 
-export WANDB_API_KEY=4463d49cb6d35aa2dbab0fe629f9aaeefc8d8898
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=baseline-rlhf-gemma_dpo
 
 # sft_output_dir=ckpts/sft_models/sft_gemma_fr_lr5e-6_3000steps_batch4_decay1e-6

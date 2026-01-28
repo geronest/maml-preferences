@@ -1,6 +1,6 @@
 #!bin/bash
 
-export WANDB_API_KEY=b31f5ed0767abb05596b308c3c5efc4384086962
+export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=maml-rlhf
 
 lang=ca
@@ -60,7 +60,7 @@ WANDB_NAME=dpo_lora_sft${SFT_NUM_STEPS}_tdata${TRAIN_DATA_SIZE}all_${lang}_lr${L
 
 sft_path=${SFT_SEARCH_CKPT}
 
-policy_output_dir=ckpts/adaption_dpo/${WANDB_NAME}
+policy_output_dir=ckpts/baseline_dpo/${WANDB_NAME}
 
 CUDA_VISIBLE_DEVICES=$GPU_ALLOC python adaptation_dpo.py \
         --model_path=$sft_path \
