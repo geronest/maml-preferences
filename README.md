@@ -35,22 +35,22 @@ Evaluation results are automatically computed at the end of each run and saved t
 We provide sample scripts for the Romanian task.
 1. baseline DPO
 ```bash
-bash scripts/baseline_dpo_gemma_ro.sh
+bash scripts/ro_baseline_dpo_gemma.sh
 ```
 
 2. Baseline RLHF
 ```bash
-bash scripts/baseline_rlhf_gemma_ro.sh
+bash scripts/ro_baseline_rlhf_gemma.sh
 ```
 
 3. Meta-DPO
 ```bash
-bash scripts/meta_dpo_gemma_ro.sh
+bash scripts/ro_meta_dpo_gemma.sh
 ```
 
 4. Meta-RLHF
 ```bash
-bash scripts/meta_rlhf_gemma_ro.sh
+bash scripts/ro_meta_rlhf_gemma.sh
 ```
 
 ## Bloom-7b1 Policy Experiments

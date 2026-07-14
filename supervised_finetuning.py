@@ -13,7 +13,7 @@ from peft import (
 from transformers import (
     AutoConfig,
     AutoModelForCausalLM,
-    ApertusForCausalLM,
+    # ApertusForCausalLM,
     AutoTokenizer,
     TrainingArguments,
     logging,
@@ -130,20 +130,14 @@ def run_training(args, train_dataset, eval_dataset, tokenizer):
             base_model_name = checkpoint_json["base_model_name_or_path"]
             
             # Determine model type
-            if "Apertus" in base_model_name:
-                model_type = ApertusForCausalLM
-            else:
-                model_type = AutoModelForCausalLM
+            model_type = AutoModelForCausalLM
             
             model, _ = rl_training.load_quantized_lora_model(model_type, args.model_path)
         else:
             checkpoint_json = read_json_base(args.model_path)
             
             # Determine model type
-            if "Apertus" in checkpoint_json.get("architectures", [""])[0]:
-                model_type = ApertusForCausalLM
-            else:
-                model_type = AutoModelForCausalLM
+            model_type = AutoModelForCausalLM
             
             model, _ = rl_training.load_model(model_type, args.model_path)
         
@@ -151,19 +145,9 @@ def run_training(args, train_dataset, eval_dataset, tokenizer):
     else:
         # Original logic: create new model from scratch
         print(f"########\n    Creating new model from base: {args.model_path}\n########\n")
-        if "Apertus" in args.model_path:
-            causal_lm = ApertusForCausalLM
-            target_modules=[
-                "q_proj",
-                "k_proj",
-                "v_proj",
-                "o_proj",
-                "up_proj",
-                "down_proj",
-            ]
-        else:
-            causal_lm = AutoModelForCausalLM
-            target_modules=["query_key_value"]
+
+        causal_lm = AutoModelForCausalLM
+        target_modules=["query_key_value"]
 
         if args.use_lora:
             # Quantization + LoRA
@@ -279,10 +263,7 @@ def main(args):
         # Loading from existing LoRA checkpoint
         checkpoint_json = read_json_lora(args.model_path)
         base_model_name = checkpoint_json["base_model_name_or_path"]
-        if "Apertus" in base_model_name:
-            architecture = "ApertusForCausalLM"
-        else:
-            architecture = "AutoModelForCausalLM"
+        architecture = "AutoModelForCausalLM"
     else:
         # Creating new model or loading full model checkpoint
         architecture = config.architectures[0]
@@ -305,10 +286,10 @@ def main(args):
         args.fsdp_transformer_layer_cls_to_wrap = "LlamaDecoderLayer"
     elif 'Bloom' in architecture or "bloom" in base_model_name:
         args.fsdp_transformer_layer_cls_to_wrap = "BloomBlock"
-    elif "Apertus" in architecture:
-        args.fsdp_transformer_layer_cls_to_wrap = "ApertusDecoderLayer"
+    elif 'Gemma' in architecture:
+        args.fsdp_transformer_layer_cls_to_wrap = "Gemma3DecoderLayer"
     else:
-        raise ValueError("We only support Llama, Bloom, and Apertus models")
+        raise ValueError("We only support Llama, Bloom, and Gemma models")
 
     train_dataset, eval_dataset, _ = create_datasets_sft(tokenizer, args)
     print("Dataset prepared: %fGB"%(torch.cuda.memory_allocated(0)/1024/1024/1024))

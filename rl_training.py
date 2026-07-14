@@ -14,7 +14,7 @@ from dataset_util import create_datasets_metagrpo
 from transformers import (
     AutoModelForSequenceClassification,
     AutoModelForCausalLM,
-    ApertusForCausalLM,
+    # ApertusForCausalLM,
     AutoTokenizer,
     set_seed,
     BitsAndBytesConfig,
@@ -110,8 +110,30 @@ def create_reward_fn(args, reward_model = None, reward_tokenizer = None):
     return reward_fn
 
 def load_reward_model(reward_type, reward_path):
-    print(f"### model path: {reward_path}")
-    tokenizer = AutoTokenizer.from_pretrained(reward_path)
+    # print(f"### model path: {reward_path}")
+    # tokenizer = AutoTokenizer.from_pretrained(reward_path)
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(reward_path)
+        print(f"### Loaded tokenizer from reward checkpoint: {reward_path}")
+    except (OSError, ValueError) as error:
+        if "bloom7b1" in reward_path:
+            tokenizer_path = "bigscience/bloom-7b1"
+        elif "bloom1b7" in reward_path:
+            tokenizer_path = "bigscience/bloom-1b7"
+        else:
+            raise ValueError(
+                f"Cannot determine tokenizer for reward model: {reward_path}"
+            )
+        print(
+            f"### Failed to load tokenizer from {reward_path}:\n"
+            f"{error}\n"
+            f"### Falling back to tokenizer: {tokenizer_path}"
+        )
+
+        tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
+    
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token = tokenizer.eos_token
     
     model = reward_type.from_pretrained(
         reward_path,

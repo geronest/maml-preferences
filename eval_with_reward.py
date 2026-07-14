@@ -10,7 +10,7 @@ from tqdm import tqdm
 from datasets import load_dataset, Dataset, concatenate_datasets
 from transformers import (
     AutoModelForSequenceClassification,
-    ApertusForCausalLM,
+    # ApertusForCausalLM,
     set_seed,
     TrainingArguments,
     AutoModelForCausalLM,
@@ -116,7 +116,7 @@ def generate_responses(args):
     df.to_csv(args.eval_result_dir + args.result_name + f"_{args.eval_dataset_size}prompts.csv", index=None)
     
     print("Finished evaluation")
-
+    
 def get_args():
     """Parse command line arguments and return configuration objects."""
     parser = argparse.ArgumentParser()

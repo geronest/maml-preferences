@@ -14,7 +14,6 @@ EVAL_FREQ=100
 SAVE_FREQ=100
 BATCH_SIZE=4
 WEIGHT_DECAY=1e-6
-WARMUP=5
 WANDB_NAME=sft_gemma_${lang}_lr${LEARNING_RATE}_${NUM_STEPS}steps_batch${BATCH_SIZE}
 sft_output_dir=ckpts/gemma_baseline/${WANDB_NAME}
 data_path=datasets/multilingual-alpaca-52k/${lang}.json
@@ -24,7 +23,6 @@ CUDA_VISIBLE_DEVICES="0" python supervised_finetuning.py \
         --data_path=$data_path \
         --output_dir=$sft_output_dir \
         --batch_size=${BATCH_SIZE} \
-        --num_warmup_steps=${WARMUP} \
         --learning_rate=${LEARNING_RATE} \
         --wandb_name=${WANDB_NAME} \
         --max_steps=${NUM_STEPS} \
@@ -77,7 +75,10 @@ SEQ_LEN=512
 EVAL_SIZE=1000
 
 reward_path=Meta-Okapi/${lang}_bloom1b7_judgerm_decay1e-6_lr5e-5_10ksteps
-policy_path=${policy_output_dir}/checkpoint-${NUM_STEPS}
+
+POLICY_SEARCH_CKPT=$(find ${policy_output_dir} -type d | sort | tail -n 1)
+echo "[SFT] Using ${POLICY_SEARCH_CKPT} to search checkpoint file"
+policy_path=${POLICY_SEARCH_CKPT}
 RESULT_NAME=${lang}/${lang}_${WANDB_NAME}
 
 CUDA_VISIBLE_DEVICES=$GPU_ALLOC python eval_with_reward.py \
